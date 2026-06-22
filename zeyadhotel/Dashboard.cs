@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -12,10 +12,10 @@ namespace zeyadhotel
             InitializeComponent();
             Dashboard.name = name;
         }
+
         Function fn = new Function();
         String query;
-        //Form1 form1 = new Form1();
-
+        static public string name;
 
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -25,9 +25,7 @@ namespace zeyadhotel
         private void guna2CircleButton1_Click(object sender, EventArgs e)
         {
             Application.Exit();
-
         }
-         static public string name;
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
@@ -36,26 +34,33 @@ namespace zeyadhotel
             uC_checkout1.Visible = false;
             uC_CustomerDetails1.Visible = false;
             uC_Employees1.Visible = false;
-            query = $"select admin,ename from employee where  username = '{name}' ";
-           DataSet ds = fn.GetData(query);
+
+            query = "SELECT admin, ename FROM employee WHERE username = @username";
+            DataSet ds = fn.GetData(query, new SqlParameter("@username", name));
+
+            if (ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("User information was not found. Please login again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Login login = new Login();
+                login.Show();
+                this.Hide();
+                return;
+            }
+
             lableUser.Text = ds.Tables[0].Rows[0][1].ToString().ToUpper();
-            if (ds.Tables[0].Rows[0][0].ToString() =="user")
+
+            if (ds.Tables[0].Rows[0][0].ToString() == "user")
             {
                 uC_Addroom1.Enabled = false;
                 uC_Employees1.Enabled = false;
                 btnCustomerRegistration.PerformClick();
-
             }
             else if (ds.Tables[0].Rows[0][0].ToString() == "admin")
             {
-            btnAddRoom.PerformClick();
+                btnAddRoom.PerformClick();
                 uC_Addroom1.Enabled = true;
                 uC_Employees1.Enabled = true;
             }
-
-
-
-
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -84,7 +89,6 @@ namespace zeyadhotel
             uC_Addroom1.Visible = true;
             uC_Addroom1.BringToFront();
             uC_Addroom1.Refresh();
-
         }
 
         private void btnCustomerRegistration_Click(object sender, EventArgs e)
@@ -93,7 +97,6 @@ namespace zeyadhotel
             uC_CustomerRegisteration1.Visible = true;
             uC_checkout1.Visible = false;
             uC_CustomerRegisteration1.BringToFront();
-
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
@@ -112,12 +115,9 @@ namespace zeyadhotel
 
         private void btnEmployee_Click(object sender, EventArgs e)
         {
-          
             movingPanel.Left = btnEmployee.Left;
             uC_Employees1.Visible = true;
             uC_Employees1.BringToFront();
-
-
         }
 
         private void btnrefresh_Click(object sender, EventArgs e)
