@@ -1,64 +1,49 @@
-# 🏨 Zeyad Hotel Management System
+# Hotel Management System
 
-![C#](https://img.shields.io/badge/C%23-.NET%204.7.2-blue?logo=csharp) ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows) ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-red?logo=microsoftsqlserver)
+A Windows desktop application for learning and demonstrating common hotel-administration workflows with a SQL Server database.
 
-نظام إدارة فندقي متكامل مبني بـ **C#** و **Windows Forms** و **.NET Framework 4.7.2**، يغطي إدارة الغرف والعملاء والموظفين.
+## Key Features
 
----
+- Employee sign-in and role-aware dashboard access
+- Room creation, pricing, availability, and occupancy status
+- Guest registration and room assignment
+- Customer record search and review
+- Check-out workflow
+- Employee record management
 
-## 📸 Screenshots
+## Tech Stack
 
-### شاشة تسجيل الدخول
-![Login](pictures/login%20image.jpg)
+- C#
+- Windows Forms
+- .NET Framework 4.7.2
+- Microsoft SQL Server
+- ADO.NET
+- Guna.UI2.WinForms
 
----
+## Architecture
 
-## ✨ المميزات
+The solution uses Windows Forms for the desktop interface and ADO.NET for direct SQL Server access. Forms are separated by workflow, while `SQLQuery1.sql` creates the local database schema and sample room records.
 
-- 🛌 **إدارة الغرف** — إضافة وتعديل وحذف الغرف
-- 👤 **تسجيل العملاء** — حجز وتسجيل بيانات العميل
-- 🚶 **تسجيل الخروج** — معالجة عمليات المغادرة
-- 📄 **تفاصيل العملاء** — عرض وتعديل بيانات العميل
-- 👨‍💼 **إدارة الموظفين** — إضافة وتعديل بيانات الموظفين
-- 🔒 **تسجيل دخول آمن** — استخدام Parameterized Queries لحماية SQL Injection
-- 📅 **سجل العمليات** — تتبع جميع العمليات بمسار نسبي
+## Getting Started
 
----
+1. Install Visual Studio with .NET desktop development and SQL Server.
+2. Run `SQLQuery1.sql` in SQL Server Management Studio. **Warning:** the script recreates the application tables and is intended only for a disposable local database.
+3. The schema script inserts a clearly synthetic demo administrator for local evaluation. Review `SQLQuery1.sql` and replace or remove that record before using any shared database.
+4. Update the local SQL Server connection string in the application for your environment.
+5. Restore NuGet packages and open `Hotel Management.sln` in Visual Studio.
 
-## 🛠️ التقنيات المستخدمة
+## My Role
 
-| التقنية | الوصف |
-|---|---|
-| C# | لغة البرمجة |
-| .NET Framework 4.7.2 | الإطار |
-| Windows Forms | واجهة المستخدم |
-| SQL Server | قاعدة البيانات |
-| Visual Studio | بيئة التطوير |
+I developed the database schema, WinForms screens, navigation, room and guest workflows, employee management, and SQL Server integration as a desktop application project.
 
----
+## Skills Demonstrated
 
-## 🚀 طريقة التشغيل
+C# desktop development, Windows Forms, ADO.NET, SQL Server schema design, CRUD workflows, and event-driven user interfaces.
 
-1. افتح ملف الحل `zeyadhotel.sln` باستخدام **Visual Studio**
-2. نفّذ ملف `SQLQuery1.sql` في **SQL Server** لإنشاء قاعدة البيانات
-3. افتح `zeyadhotel/App.config` وتأكد من إعداد الاتصال:
-```xml
-Data Source=.;Initial Catalog=Hotel;Integrated Security=True
-```
-4. شغّل المشروع من Visual Studio ▶️
+## Project Status and Limitations
 
----
+This is an academic/portfolio desktop application and is not production-ready. Passwords are currently stored as plain text, several database operations build SQL dynamically, and the connection string is configured in source. Before real use, it would require password hashing, fully parameterized queries, secret configuration, authorization review, tests, audit logging, and deployment packaging.
 
-## 🔐 بيانات الدخول الافتراضية
+## License
 
-| الحقل | القيمة |
-|---|---|
-| Username | `zeyad` |
-| Password | `1234` |
-
----
-
-## 👤 المطور
-
-**Zeyad Al-Ameri**  
-[![GitHub](https://img.shields.io/badge/GitHub-zeyadalameri-black?logo=github)](https://github.com/zeyadalameri)
+No open-source license has been declared.
